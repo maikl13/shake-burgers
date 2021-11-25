@@ -3,20 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:gravity="center_vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_margin="10dp"
             android:layout_toStartOf="@id/id1"
-            android:layout_alignParentStart="true"
             android:gravity="center_vertical">
 
             <ImageView
@@ -42,11 +43,11 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/futura_bold_font"
                     android:letterSpacing="-0.02"
-android:id="@+id/address"
                     android:maxLines="2"
                     android:text="Jumeirah Lake Towers"
                     android:textAllCaps="true"
@@ -58,39 +59,208 @@ android:id="@+id/address"
 
 
         <LinearLayout
+            android:id="@+id/id1"
             android:layout_width="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-       android:id="@+id/id1"
-            android:layout_height="wrap_content">
+            android:layout_margin="10dp"
+            android:gravity="center_vertical">
+
             <ImageView
                 android:layout_width="20dp"
-                android:src="@drawable/mic"
-                android:layout_height="20dp"/>
+                android:layout_height="20dp"
+                android:src="@drawable/mic" />
+
             <ImageView
                 android:layout_width="18dp"
-                android:src="@drawable/search"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:layout_height="20dp"/>
+                android:layout_height="20dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/search" />
+
             <ImageView
                 android:layout_width="20dp"
-                android:src="@drawable/settings"
+                android:layout_height="20dp"
                 android:onClick="change_address"
-                android:layout_height="20dp"/>
+                android:src="@drawable/settings" />
         </LinearLayout>
 
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-tools:itemCount="5"
-        tools:listitem="@layout/section_item"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="horizontal"
-android:layout_marginTop="20dp"
         android:id="@+id/sections"
-        android:layout_height="wrap_content"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:translationZ="50dp"
+        android:orientation="horizontal"
+
+
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="5"
+        tools:listitem="@layout/section_item" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_marginTop="-20dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-20dp"
+                android:layout_marginTop="5dp"
+                android:adjustViewBounds="true"
+
+                android:src="@drawable/logo" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="10dp"
+                    app:cardCornerRadius="25dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1">
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/futura_bold_font"
+
+                                android:maxLines="2"
+
+                                android:layout_marginStart="10dp"
+                                android:alpha="0.8"
+                                android:text="Most ordered"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorAccent"
+                                android:textSize="16sp" />
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/futura_bold_font"
+
+                                android:layout_marginTop="5dp"
+                                android:layout_marginStart="10dp"
+
+                                android:text="Chick’n Shack"
+
+                                android:textColor="@color/colorAccent"
+                                android:textSize="25sp" />
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/futura_medium_bt"
+
+                                android:layout_marginStart="10dp"
+
+                                android:text="Crissssssssspy. "
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorAccent"
+                                android:textSize="15sp" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/futura_medium_bt"
+
+                                    android:layout_marginStart="10dp"
+                                    android:alpha=".9"
+                                    android:text="AED "
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/colorAccent"
+                                    android:textSize="14sp" />
+                                <TextView
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/futura_medium_bt"
+
+
+                                    android:text="55"
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/colorAccent"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            >
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:adjustViewBounds="true"
+                                android:layout_gravity="bottom"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/b_1" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:translationZ="10dp"
+
+                    android:adjustViewBounds="true"
+                    android:layout_gravity="end"
+                    android:src="@drawable/fav_unselect" />
+            </FrameLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+          android:id="@+id/burgers"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/burger_item"
+                app:spanCount="2"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

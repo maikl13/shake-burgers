@@ -1,4 +1,4 @@
-package com.shake.burgers;
+package com.shake.burgers.libs;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;

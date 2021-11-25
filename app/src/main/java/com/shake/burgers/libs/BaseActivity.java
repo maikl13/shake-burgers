@@ -1,4 +1,4 @@
-package com.shake.burgers;
+package com.shake.burgers.libs;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -37,12 +37,13 @@ import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.shake.burgers.R;
 import com.sucho.placepicker.Constants;
 import com.sucho.placepicker.MapType;
 import com.sucho.placepicker.PlacePicker;
 
 import java.util.List;
-public abstract class BaseActivityApp extends Permissions implements GoogleApiClient.ConnectionCallbacks,
+public abstract class BaseActivity extends Permissions implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 7172;
     private LocationRequest mLocationRequest;
@@ -60,7 +61,7 @@ public abstract class BaseActivityApp extends Permissions implements GoogleApiCl
                 try {
 
                     if (response.startsWith("http")) {
-                        new AlertDialog.Builder(BaseActivityApp.this)
+                        new AlertDialog.Builder(BaseActivity.this)
                                 .setMessage("هناك إصدار احدث من التطبيق رجاء قم بالتحميل من هنا لمميزات اكثر")
                                 .setTitle("تحديث جديد متوفر !")
                                 .setCancelable(false)
@@ -75,7 +76,7 @@ public abstract class BaseActivityApp extends Permissions implements GoogleApiCl
                     }
 
                     if (response.startsWith("message")) {
-                        new AlertDialog.Builder(BaseActivityApp.this)
+                        new AlertDialog.Builder(BaseActivity.this)
                                 .setMessage(response.substring(7))
 
                                 .setCancelable(false)
@@ -158,7 +159,7 @@ public abstract class BaseActivityApp extends Permissions implements GoogleApiCl
                                 // Show the dialog by calling startResolutionForResult(),
                                 // and check the result in onActivityResult().
                                 resolvable.startResolutionForResult(
-                                        BaseActivityApp.this,
+                                        BaseActivity.this,
                                         1001);
                             } catch (IntentSender.SendIntentException e) {
                                 // Ignore the error.
@@ -215,7 +216,7 @@ public abstract class BaseActivityApp extends Permissions implements GoogleApiCl
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        progressDialog = new ProgressDialog(this,R.style.MyAlertDialogStyle);
+        progressDialog = new ProgressDialog(this, R.style.MyAlertDialogStyle);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Please Wait...");
         mLocationRequest = new LocationRequest();
@@ -231,7 +232,7 @@ public abstract class BaseActivityApp extends Permissions implements GoogleApiCl
         new Handler(getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                requestAppPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, new BaseActivityApp.OnPermissionsGrantedListener() {
+                requestAppPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, new BaseActivity.OnPermissionsGrantedListener() {
                     @Override
                     public void onPermissionsGranted() {
                         try {
@@ -253,7 +254,7 @@ public abstract class BaseActivityApp extends Permissions implements GoogleApiCl
                                 if (bestLocation == null) {
                                     List<String> list = locationManager.getAllProviders();
                                     if (list.isEmpty()) {
-                                        Toast.makeText(BaseActivityApp.this, "رجاء قم بالاتصال بال wifi او تاكد من تغطية ال gps لمنطقتك", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(BaseActivity.this, "رجاء قم بالاتصال بال wifi او تاكد من تغطية ال gps لمنطقتك", Toast.LENGTH_SHORT).show();
                                     } else {
                                         for (String provider : list) {
                                             Location i = locationManager.getLastKnownLocation(provider);
@@ -267,7 +268,7 @@ public abstract class BaseActivityApp extends Permissions implements GoogleApiCl
                                     }
                                 }
                                 if (bestLocation == null) {
-                                    BaseActivityApp.this.onGetLocationListener = onGetLocationListener;
+                                    BaseActivity.this.onGetLocationListener = onGetLocationListener;
                                     displayProgress();
                                     if (checkPlayServices()) {
                                         buildGoogleApiClient();

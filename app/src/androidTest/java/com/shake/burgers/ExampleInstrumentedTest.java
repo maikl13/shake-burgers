@@ -1,4 +1,4 @@
-package com.shake.shake_burgers;
+package com.shake.burgers;
 
 import android.content.Context;
 

@@ -338,7 +338,58 @@
                     android:fontFamily="@font/futura_medium_bt"
                     android:text="Contactless Delivery"
                     android:textColor="@color/colorAccent" />
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="10dp">
 
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+
+                        android:orientation="vertical">
+
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+
+                            android:fontFamily="@font/futura_bold_font"
+                            android:text="Total"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/futura_medium_bt"
+                            android:text="AED 309"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorAccent"
+
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginEnd="20sp"
+                        android:background="@drawable/checkout"
+                        android:fontFamily="@font/futura_medium_bt"
+                        android:paddingStart="10dp"
+                        android:paddingTop="4dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="4dp"
+                        android:text="Checkout"
+                        android:textColor="@color/colorAccent" />
+                </FrameLayout>
 
             </LinearLayout>
 
@@ -346,56 +397,5 @@
         </FrameLayout>
 
     </androidx.core.widget.NestedScrollView>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="10dp">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-
-            android:orientation="vertical">
-
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-
-                android:fontFamily="@font/futura_bold_font"
-                android:text="Total"
-                android:textColor="@color/colorAccent"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/futura_medium_bt"
-                android:text="AED 309"
-                android:textAllCaps="true"
-                android:textColor="@color/colorAccent"
-
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="end|center_vertical"
-            android:layout_marginEnd="20sp"
-            android:background="@drawable/checkout"
-            android:fontFamily="@font/futura_medium_bt"
-            android:paddingStart="10dp"
-            android:paddingTop="4dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="4dp"
-            android:text="Checkout"
-            android:textColor="@color/colorAccent" />
-    </FrameLayout>
 </FrameLayout>

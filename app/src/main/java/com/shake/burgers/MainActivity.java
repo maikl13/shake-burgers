@@ -26,10 +26,18 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.shake.burgers.libs.BaseActivity;
 import com.sucho.placepicker.AddressData;
 import com.sucho.placepicker.Constants;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity {
@@ -39,77 +47,104 @@ public class MainActivity extends BaseActivity {
     SharedPreferences prefs;
     // current animation button
     int currentAnimation = 0;
+    // burgers list
+    ArrayList<Burger> burgersList;
+    RecyclerView.Adapter<BurgerHolder> burgerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-// init open cart to animate it
-        View openCart = findViewById(R.id.open_cart);
-        // load top ordered burger
-        new BurgerHolder(findViewById(R.id.most)).bind(new Burger("Chick’n Shack", "Crissssssssspy. ", R.drawable.b_1, 55));
         // init prefs
         prefs = getSharedPreferences("data", 0);
         // set user's address
         address = findViewById(R.id.address);
         address.setText(prefs.getString("address", "Jumeirah Lake Towers"));
+
+// init open cart to animate it
+        View openCart = findViewById(R.id.open_cart);
 // load sections
         RecyclerView sections = findViewById(R.id.sections);
         sections.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-
-        sections.setAdapter(new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-            @NonNull
+// load sections online
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://all-go.net/burger/sections.php", new com.android.volley.Response.Listener<String>() {
             @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                return new RecyclerView.ViewHolder(getLayoutInflater().inflate(R.layout.section_item, parent, false)) {
-                    @Override
-                    public String toString() {
-                        return super.toString();
-                    }
-                };
-            }
+            public void onResponse(final String r) {
+                try {
+                    // convert to utf8
+                    String response = fixEncoding(r);
+                    JSONArray sectionsList = new JSONArray(response);
+// set adapter from online data
+                    sections.setAdapter(new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+                        @NonNull
+                        @Override
+                        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                            return new RecyclerView.ViewHolder(getLayoutInflater().inflate(R.layout.section_item, parent, false)) {
+                                @Override
+                                public String toString() {
+                                    return super.toString();
+                                }
+                            };
+                        }
 
-            @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-                // change background is selected
-                (holder.itemView.findViewById(R.id.item_background)).setBackgroundResource(position == selected_section ? R.drawable.section_selected : R.drawable.section_unselected);
-                // change small image tint if selected
-                ImageView imageView = holder.itemView.findViewById(R.id.image);
-                ImageViewCompat.setImageTintList(imageView, ColorStateList.valueOf(getResources().getColor(position == selected_section ? R.color.colorPrimary : R.color.colorPrimaryDark)));
+                        @Override
+                        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+                            try {
+                                // load data from the json
+                                JSONObject section = sectionsList.getJSONObject(position);
+                                String id = section.getString("id");
+
+                                String link = section.getString("image");
+                                // change background is selected
+
+                                (holder.itemView.findViewById(R.id.item_background)).setBackgroundResource(selected_section.equals(id) ? R.drawable.section_selected : R.drawable.section_unselected);
+                                // change small image tint if selected
+                                ImageView imageView = holder.itemView.findViewById(R.id.image);
+
+                                load(link, imageView, R.drawable.loading);
+                                ImageViewCompat.setImageTintList(imageView, ColorStateList.valueOf(getResources().getColor(selected_section.equals(id) ? R.color.colorPrimary : R.color.colorPrimaryDark)));
 // change selected on click
 
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
 
-                        selected_section = position;
-                        notifyDataSetChanged();
-                        // load burgers after change the section
-                        loadBurgers();
-                    }
-                });
+                                        selected_section = id;
+                                        notifyDataSetChanged();
+                                        // load burgers after change the section
+                                        loadBurgers();
+                                    }
+                                });
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
 
 
+                        }
+
+                        @Override
+                        public int getItemCount() {
+                            return sectionsList.length();
+                        }
+                    });
+                } catch (Exception e) {
+
+                }
             }
-
+        }, new com.android.volley.Response.ErrorListener() {
             @Override
-            public int getItemCount() {
-                return 5;
+            public void onErrorResponse(VolleyError error) {
             }
         });
+        Volley.newRequestQueue(this).add(stringRequest);
+
+
         // load burgers list
-        ArrayList<Burger> burgersList = new ArrayList<>();
-        burgersList.add(new Burger("ShackBurger*", "Cheesy and Juicy", R.drawable.b_2, 85));
-        burgersList.add(new Burger("ShackBurger*", "Cheesy and Juicy", R.drawable.b_3, 25));
-
-        burgersList.add(new Burger("ShackBurger*", "Cheesy and Juicy", R.drawable.b_4, 95));
-
-        burgersList.add(new Burger("ShackBurger*", "Cheesy and Juicy", R.drawable.b_5, 15));
-
+        burgersList = new ArrayList<>();
 
         RecyclerView burgers = findViewById(R.id.burgers);
         burgers.setLayoutManager(new GridLayoutManager(this, 2));
-        burgers.setAdapter(new RecyclerView.Adapter<BurgerHolder>() {
+        burgerAdapter = new RecyclerView.Adapter<BurgerHolder>() {
             @NonNull
             @Override
             public BurgerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -124,14 +159,15 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onBindViewHolder(@NonNull BurgerHolder holder, int position) {
                 Burger burger = burgersList.get(position);
-                holder.bind(burger);
+                holder.bind(MainActivity.this, burger);
             }
 
             @Override
             public int getItemCount() {
                 return burgersList.size();
             }
-        });
+        };
+        burgers.setAdapter(burgerAdapter);
         // get original Y point to compare it letter (make sure button not out of bounds)
         int originalAnimate = -Math.round(openCart.getTranslationY());
         currentAnimation = -Math.round(openCart.getTranslationY());
@@ -155,15 +191,60 @@ public class MainActivity extends BaseActivity {
 
                 }
             });
+
         }
+        loadBurgers();
     }
 
-    int selected_section = 0;
+    String selected_section = "1";
 
     void loadBurgers() {
+progressDialog.show();
+        // load sections online
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://all-go.net/burger/burgers.php?id=" + selected_section, new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(final String r) {
+                progressDialog.dismiss();
+                try {
+                    // convert to utf8
+                    String response = fixEncoding(r);
+                    JSONObject json = new JSONObject(response);
+                    // get top ordered
+                    Burger top = new Burger(json.getJSONObject("top"));
+                    // load top ordered burger
+                    new BurgerHolder(findViewById(R.id.most)).bind(MainActivity.this, top);
 
+                    // load rest of burgers into our array
+                    JSONArray list = json.getJSONArray("list");
+                    burgersList.clear();
+                    for (int i = 0; i < list.length(); i++) {
+                        burgersList.add(new Burger(list.getJSONObject(i)));
+                    }
+                    // notify changes
+                    burgerAdapter.notifyDataSetChanged();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+        Volley.newRequestQueue(this).add(stringRequest);
+        burgerAdapter.notifyDataSetChanged();
     }
-
+    public static String fixEncoding(String response) {
+        try {
+            byte[] u = response.toString().getBytes(
+                    "ISO-8859-1");
+            response = new String(u, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return response;
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -1,15 +1,21 @@
 package com.shake.burgers;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Burger {
-    String name,details;
-    int icon,price;
+    String name,details,icon;
+    int price;
     boolean fav;
 
-    public Burger(String name, String details, int icon, int price) {
-        this.name = name;
-        this.details = details;
-        this.icon = icon;
-        this.price = price;
-        this.fav = false;
+
+    public Burger(JSONObject jsonObject) throws JSONException {
+
+         this.name = jsonObject.getString("name");
+         this.details = jsonObject.getString("details");
+         this.icon = jsonObject.getString("image");
+         this.price =  Integer.parseInt(jsonObject.getString("price"));
+         this.fav = false;
+
     }
 }

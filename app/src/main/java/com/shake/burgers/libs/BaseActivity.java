@@ -1,28 +1,27 @@
 package com.shake.burgers.libs;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 
-import com.android.volley.Request;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.signature.ObjectKey;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -55,44 +54,18 @@ public abstract class BaseActivity extends Permissions implements GoogleApiClien
             mGoogleApiClient.connect();
 
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://maiklalana83474.ipage.com/tryaq/update.php", new com.android.volley.Response.Listener<String>() {
-            @Override
-            public void onResponse(final String response) {
-                try {
 
-                    if (response.startsWith("http")) {
-                        new AlertDialog.Builder(BaseActivity.this)
-                                .setMessage("هناك إصدار احدث من التطبيق رجاء قم بالتحميل من هنا لمميزات اكثر")
-                                .setTitle("تحديث جديد متوفر !")
-                                .setCancelable(false)
-                                .setPositiveButton("تحديث الأن", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(response));
-                                        startActivity(browserIntent);
-                                    }
-                                })
-                                .show();
-                    }
-
-                    if (response.startsWith("message")) {
-                        new AlertDialog.Builder(BaseActivity.this)
-                                .setMessage(response.substring(7))
-
-                                .setCancelable(false)
-
-                                .show();
-                    }
-                }catch (Exception e){
-
-                }
-            }
-        }, new com.android.volley.Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        });
-        Volley.newRequestQueue(this).add(stringRequest);
+    }
+    public void load(String link , ImageView img , int placeholder){
+        Glide.with(this).load("https://all-go.net/burger/"+link).apply(new RequestOptions()
+                .placeholder(placeholder)
+                .skipMemoryCache(false)
+                .dontAnimate()
+                .centerCrop()
+                .dontTransform()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .signature(new ObjectKey(link))) // here you add some value , if the next time you add the same value then it will load from cache otherwise if you put new value you will download , then save in cache
+                .into(img);
     }
     @Override
     protected void onStop() {

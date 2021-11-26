@@ -8,10 +8,12 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.shake.burgers.libs.BaseActivity;
+
 public class BurgerHolder extends RecyclerView.ViewHolder {
 
-void bind(Burger burger){
-   icon.setImageResource(burger.icon);
+void bind(BaseActivity libs , Burger burger){
+   libs.load(burger.icon , icon , R.drawable.loading);
   name.setText(burger.name);
   price.setText(String.valueOf(burger.price));
   fav.setImageResource(burger.fav ? R.drawable.fav_select:R.drawable.fav_unselect);
@@ -25,7 +27,7 @@ name.setTextColor(itemView.getContext().getResources().getColor(burger.fav ? R.c
         public void onClick(View v) {
 
             burger.fav = !burger.fav;
-            bind(burger);
+            bind(libs,burger);
         }
     });
 }

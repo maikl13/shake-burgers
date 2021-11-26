@@ -9,18 +9,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.ImageViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.shake.burgers.libs.BaseActivity;
+
 import java.util.ArrayList;
 
-public class BurgerViewer extends AppCompatActivity {
+public class BurgerViewer extends BaseActivity {
 TextView counter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_burger_viewer);
+        Burger burger = (Burger)getIntent().getSerializableExtra("burger");
+        new BurgerHolder(findViewById(R.id.main)).bind(this,burger);
         counter = findViewById(R.id.count);
         RecyclerView ingredients = findViewById(R.id.ingredients);
 

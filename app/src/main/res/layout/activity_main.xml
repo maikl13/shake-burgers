@@ -200,6 +200,7 @@ android:id="@+id/most"
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
+                                    android:gravity="center"
                                     android:layout_marginTop="15dp"
                                     android:layout_height="wrap_content">
 
@@ -282,7 +283,7 @@ android:id="@+id/fav"
         android:background="@drawable/main_paid_count"
 android:layout_gravity="bottom"
         android:id="@+id/open_cart"
-        android:onClick="cart"
+        android:onClick="open_cart"
         android:translationY="78dp"
         android:layout_margin="10dp"
         android:layout_height="65dp">
@@ -376,4 +377,6 @@ android:layout_marginEnd="10dp"
 
         </LinearLayout>
     </FrameLayout>
+
+    <include layout="@layout/cart_layout"/>
 </FrameLayout>

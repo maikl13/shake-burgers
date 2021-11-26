@@ -3,8 +3,10 @@ package com.shake.burgers;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Burger {
-    String name,details,icon;
+import java.io.Serializable;
+
+public class Burger implements Serializable {
+    String name,details, image,description;
     int price;
     boolean fav;
 
@@ -13,7 +15,9 @@ public class Burger {
 
          this.name = jsonObject.getString("name");
          this.details = jsonObject.getString("details");
-         this.icon = jsonObject.getString("image");
+         this.image = jsonObject.getString("image");
+        this.description = jsonObject.getString("description");
+
          this.price =  Integer.parseInt(jsonObject.getString("price"));
          this.fav = false;
 

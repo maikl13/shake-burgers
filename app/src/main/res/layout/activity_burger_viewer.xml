@@ -1,0 +1,612 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".MainActivity">
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/top" />
+
+                <ImageView
+                    android:id="@+id/fav"
+                    android:layout_width="40dp"
+
+                    android:layout_height="40dp"
+                    android:layout_gravity="end"
+                    android:layout_margin="10dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/fav_unselect" />
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="start"
+                    android:layout_margin="10dp"
+                    android:adjustViewBounds="true"
+                    android:onClick="back"
+                    android:padding="10dp"
+                    android:src="@drawable/back" />
+
+                <ImageView
+                    android:id="@+id/img"
+                    android:layout_width="match_parent"
+                    android:layout_height="154dp"
+                    android:layout_gravity="bottom"
+
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/temp" />
+
+            </FrameLayout>
+
+            <TextView
+
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/futura_bold_font"
+
+                android:text="Chick’n Shack"
+
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="50sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+
+                    android:alpha=".9"
+                    android:fontFamily="@font/futura_medium_bt"
+                    android:text="AED "
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="23sp" />
+
+                <TextView
+
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="@font/futura_bold_font"
+
+                    android:text="55"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="23sp" />
+
+            </LinearLayout>
+
+
+            <TextView
+
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:alpha=".9"
+                android:fontFamily="@font/futura_book_font"
+                android:text="Antibiotic-free, crispy chicken breast with lettuce, pickles, and buttermilk herb mayo on a non-GMO Martin’s Potato Roll."
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="19sp" />
+
+            <TextView
+                android:id="@+id/details"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+
+                android:fontFamily="@font/futura_medium_bt"
+                android:text="Crissssssssspy. "
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"
+                android:visibility="gone" />
+
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/futura_bold_font"
+
+                android:text="Patty"
+
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="23sp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:id="@+id/v1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/patty_selected"
+                    android:gravity="center"
+                    android:onClick="single_order"
+                    android:orientation="vertical"
+                    android:scaleType="fitCenter">
+
+                    <TextView
+
+                        android:id="@+id/v2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+
+                        android:layout_gravity="center"
+                        android:layout_marginTop="25dp"
+                        android:fontFamily="@font/futura_bold_font"
+                        android:gravity="center"
+
+                        android:text="Single"
+
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginBottom="25dp"
+                        android:gravity="center">
+
+                        <TextView
+
+
+                            android:id="@+id/v3"
+                            android:layout_width="wrap_content"
+
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/futura_bold_font"
+                            android:text="432 "
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="20sp" />
+
+                        <TextView
+
+                            android:id="@+id/v4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:alpha=".9"
+                            android:fontFamily="@font/futura_medium_bt"
+                            android:text=" kcal"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="20sp" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/d1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/patty_unselected"
+                    android:gravity="center"
+                    android:onClick="double_order"
+                    android:orientation="vertical"
+                    android:scaleType="fitCenter">
+
+                    <TextView
+
+                        android:id="@+id/d2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="25dp"
+
+                        android:fontFamily="@font/futura_bold_font"
+                        android:gravity="center"
+
+                        android:text="Double"
+
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginBottom="25dp"
+                        android:gravity="center">
+
+                        <TextView
+
+
+                            android:id="@+id/d3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/futura_bold_font"
+
+                            android:text="864"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="20sp" />
+
+                        <TextView
+
+                            android:id="@+id/d4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:alpha=".9"
+                            android:fontFamily="@font/futura_medium_bt"
+                            android:text=" kcal"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/futura_bold_font"
+
+                android:text="Ingredients"
+
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="23sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ingredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:translationZ="50dp"
+
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="5"
+                tools:itemCount="6"
+                tools:listitem="@layout/ingredients_item" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/futura_bold_font"
+
+                android:text="Extras"
+
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="23sp" />
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="25dp"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+
+                    android:layout_marginStart="10dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:fontFamily="@font/futura_bold_font"
+
+                            android:text="Add Bacon"
+
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="23sp" />
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                           android:fontFamily="@font/futura_book_font"
+
+                            android:text=" (70 kcal)"
+
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="23sp" />
+
+                    </LinearLayout>
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/futura_book_font"
+
+                        android:text="AED 5"
+
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="17sp" />
+
+                </LinearLayout>
+
+                <CheckBox
+                   android:layout_marginEnd="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:button="@drawable/check_box_selector"
+
+                    android:layout_gravity="end|center_vertical"
+                   />
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="25dp"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+
+                    android:layout_marginStart="10dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:fontFamily="@font/futura_bold_font"
+
+                            android:text="Add Cheese"
+
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="23sp" />
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:fontFamily="@font/futura_book_font"
+
+                            android:text=" (120 kcal)"
+
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="23sp" />
+
+                    </LinearLayout>
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/futura_book_font"
+
+                        android:text="AED 3"
+
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="17sp" />
+
+                </LinearLayout>
+
+                <CheckBox
+                    android:layout_marginEnd="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:button="@drawable/check_box_selector"
+
+                    android:layout_gravity="end|center_vertical"
+                    />
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="25dp"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+
+                    android:layout_marginStart="10dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:fontFamily="@font/futura_bold_font"
+
+                            android:text="No Sauce"
+
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="23sp" />
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:fontFamily="@font/futura_book_font"
+
+                            android:text=" (-85 kcal)"
+
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="23sp" />
+
+                    </LinearLayout>
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/futura_book_font"
+
+                        android:text="AED 0"
+
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="17sp" />
+
+                </LinearLayout>
+
+                <CheckBox
+                    android:layout_marginEnd="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:button="@drawable/check_box_selector"
+
+                    android:layout_gravity="end|center_vertical"
+                    />
+            </FrameLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:adjustViewBounds="true"
+                    android:id="@+id/add"
+                    android:onClick="add_to_cart"
+                    android:src="@drawable/add_to_cart"
+                    android:layout_height="wrap_content"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+
+                    android:layout_marginEnd="10dp"
+                    android:layout_toStartOf="@id/add"
+                    android:layout_alignParentStart="true"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="match_parent"
+
+                        android:scaleType="fitXY"
+                        android:src="@drawable/counter_background"
+                        android:layout_height="match_parent"/>
+                    <TextView
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:fontFamily="@font/futura_medium_bt"
+                        android:layout_marginBottom="5dp"
+                        android:text="1"
+                        android:id="@+id/count"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="23sp" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/add"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="2dp"
+                        android:onClick="add"
+                        android:layout_height="match_parent"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/minus"
+                        android:layout_margin="2dp"
+                        android:onClick="minus"
+                        android:layout_height="match_parent"/>
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+</FrameLayout>

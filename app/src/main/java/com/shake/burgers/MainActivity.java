@@ -51,18 +51,22 @@ public class MainActivity extends BaseActivity {
     ArrayList<Burger> burgersList;
     RecyclerView.Adapter<BurgerHolder> burgerAdapter;
 
+
+    View cart,openCart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // init prefs
         prefs = getSharedPreferences("data", 0);
+        // init cart layout
+        cart = findViewById(R.id.cart);
         // set user's address
         address = findViewById(R.id.address);
         address.setText(prefs.getString("address", "Jumeirah Lake Towers"));
 
 // init open cart to animate it
-        View openCart = findViewById(R.id.open_cart);
+         openCart = findViewById(R.id.open_cart);
 // load sections
         RecyclerView sections = findViewById(R.id.sections);
         sections.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
@@ -323,6 +327,24 @@ progressDialog.show();
 
     }
 
-    public void cart(View view) {
+
+    @Override
+    public void onBackPressed() {
+
+        if(cart.getVisibility()==View.VISIBLE){
+            cart.setVisibility(View.GONE);
+            return;
+        }
+        super.onBackPressed();
     }
+
+    public void close_cart(View view) {
+        cart.setVisibility(View.GONE);
+        openCart.setVisibility(View.VISIBLE);
+    }
+    public void open_cart(View view) {
+        cart.setVisibility(View.VISIBLE);
+        openCart.setVisibility(View.GONE);
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.shake.burgers;
+package com.shake.burgers.manager;
 
 import android.content.Intent;
 import android.view.View;
@@ -9,11 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.shake.burgers.BurgerViewer;
+import com.shake.burgers.R;
 import com.shake.burgers.libs.BaseActivity;
 
 public class BurgerHolder extends RecyclerView.ViewHolder {
 
-void bind(BaseActivity baseActivity , Burger burger){
+public  void bind(BaseActivity baseActivity , Burger burger){
    baseActivity.load(burger.image, icon , R.drawable.loading);
   name.setText(burger.name);
   price.setText(String.valueOf(burger.price));
@@ -40,7 +42,7 @@ name.setTextColor(itemView.getContext().getResources().getColor(burger.fav ? R.c
       public void onClick(View v) {
 
 
-          baseActivity.startActivity(new Intent(baseActivity,BurgerViewer.class).putExtra("burger" , burger));
+          baseActivity.startActivity(new Intent(baseActivity, BurgerViewer.class).putExtra("burger" , burger));
       }
   });
 }

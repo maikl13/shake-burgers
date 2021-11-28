@@ -1,25 +1,21 @@
 package com.shake.burgers;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
+import android.speech.RecognizerIntent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.core.widget.ImageViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -30,7 +26,13 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.shake.burgers.manager.Burger;
+import com.shake.burgers.manager.BurgerAdapter;
+import com.shake.burgers.manager.BurgerHolder;
 import com.shake.burgers.libs.BaseActivity;
+import com.shake.burgers.libs.BurgerAlertDialog;
 import com.sucho.placepicker.AddressData;
 import com.sucho.placepicker.Constants;
 
@@ -39,6 +41,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends BaseActivity {
     // address text view
@@ -49,24 +52,23 @@ public class MainActivity extends BaseActivity {
     int currentAnimation = 0;
     // burgers list
     ArrayList<Burger> burgersList;
-    RecyclerView.Adapter<BurgerHolder> burgerAdapter;
+    BurgerAdapter burgerAdapter;
 
 
-    View cart,openCart;
+    View openCart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // init prefs
         prefs = getSharedPreferences("data", 0);
-        // init cart layout
-        cart = findViewById(R.id.cart);
         // set user's address
         address = findViewById(R.id.address);
         address.setText(prefs.getString("address", "Jumeirah Lake Towers"));
 
 // init open cart to animate it
-         openCart = findViewById(R.id.open_cart);
+        openCart = findViewById(R.id.open_cart);
 // load sections
         RecyclerView sections = findViewById(R.id.sections);
         sections.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
@@ -148,32 +150,11 @@ public class MainActivity extends BaseActivity {
 
         RecyclerView burgers = findViewById(R.id.burgers);
         burgers.setLayoutManager(new GridLayoutManager(this, 2));
-        burgerAdapter = new RecyclerView.Adapter<BurgerHolder>() {
-            @NonNull
-            @Override
-            public BurgerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                return new BurgerHolder(getLayoutInflater().inflate(R.layout.burger_item, parent, false)) {
-                    @Override
-                    public String toString() {
-                        return super.toString();
-                    }
-                };
-            }
-
-            @Override
-            public void onBindViewHolder(@NonNull BurgerHolder holder, int position) {
-                Burger burger = burgersList.get(position);
-                holder.bind(MainActivity.this, burger);
-            }
-
-            @Override
-            public int getItemCount() {
-                return burgersList.size();
-            }
-        };
+        burgerAdapter = new BurgerAdapter(this);
+        burgerAdapter.apply("" , burgersList);
         burgers.setAdapter(burgerAdapter);
         // get original Y point to compare it letter (make sure button not out of bounds)
-        int originalAnimate = -Math.round(openCart.getTranslationY());
+        int originalAnimate = -dpToPx(78);
         currentAnimation = -Math.round(openCart.getTranslationY());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             ((NestedScrollView) findViewById(R.id.nested)).setOnScrollChangeListener(new View.OnScrollChangeListener() {
@@ -203,7 +184,7 @@ public class MainActivity extends BaseActivity {
     String selected_section = "1";
 
     void loadBurgers() {
-progressDialog.show();
+        progressDialog.show();
         // load sections online
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://all-go.net/burger/burgers.php?id=" + selected_section, new com.android.volley.Response.Listener<String>() {
             @Override
@@ -225,7 +206,9 @@ progressDialog.show();
                         burgersList.add(new Burger(list.getJSONObject(i)));
                     }
                     // notify changes
-                    burgerAdapter.notifyDataSetChanged();
+
+                    burgerAdapter.apply("" , burgersList);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -238,6 +221,7 @@ progressDialog.show();
         Volley.newRequestQueue(this).add(stringRequest);
         burgerAdapter.notifyDataSetChanged();
     }
+
     public static String fixEncoding(String response) {
         try {
             byte[] u = response.toString().getBytes(
@@ -249,12 +233,23 @@ progressDialog.show();
         }
         return response;
     }
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // when get text address hide loading dialog
         progressDialog.dismiss();
-        if (resultCode == Activity.RESULT_OK && data != null) {
+        if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
+            ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            if (result != null && !result.isEmpty()) {
+                String recognizedText = result.get(0);
+                search(recognizedText);
+            } else {
+                search("");
+            }
+
+        } else if (resultCode == Activity.RESULT_OK && data != null) {
             // if data is correct get address line
             AddressData addressData = data.getParcelableExtra(Constants.ADDRESS_INTENT);
             String newLocation;
@@ -265,49 +260,18 @@ progressDialog.show();
                 newLocation = "";
             }
             // show dialog to manually edit
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            // Specify the alert dialog title
-            String titleText = "Change Your Address";
-            // Initialize a new foreground color span instance
-            ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(getResources().getColor(R.color.colorPrimary));
-            // Initialize a new spannable string builder instance
-            SpannableStringBuilder ssBuilder = new SpannableStringBuilder(titleText);
-            // Apply the text color span
-            ssBuilder.setSpan(
-                    foregroundColorSpan,
-                    0,
-                    titleText.length(),
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-            );
-            alert.setTitle(ssBuilder);
-            // add edit text to alert
-            final EditText edittext = new EditText(this);
-            edittext.setHint("New Address Here");
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParams.leftMargin = 100;
-            layoutParams.rightMargin = 100;
-            layoutParams.topMargin = 100;
-            edittext.setTypeface(ResourcesCompat.getFont(this, R.font.futura_medium_bt));
-            edittext.setLayoutParams(layoutParams);
-            edittext.setText(newLocation);
-            RelativeLayout layout = new RelativeLayout(this);
-            layout.addView(edittext);
-            // set view to alert dialog
-            alert.setView(layout);
-            alert.setPositiveButton("Change", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    // when user click apply
-                    String msg = edittext.getText().toString();
+            new BurgerAlertDialog(this, "Change Your Address", newLocation, "New Address Here", "Change", new BurgerAlertDialog.OnAlertResultListener() {
+                @Override
+                public void OnAlertResult(String input) {
+
                     // update UI address text
-                    address.setText(msg);
+                    address.setText(input);
                     // it's save new address in prefs
-                    prefs.edit().putString("address", msg).apply();
+                    prefs.edit().putString("address", input).apply();
                 }
-            });
-            // back button
-            alert.setNegativeButton("Back", null);
-            // show dialog
-            alert.show();
+            }).show();
+
+
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -328,23 +292,64 @@ progressDialog.show();
     }
 
 
+    void search(String text) {
+        new BurgerAlertDialog(this, "Easy and fast Search", text, "What is your favorite meal ?", "Search", new BurgerAlertDialog.OnAlertResultListener() {
+            @Override
+            public void OnAlertResult(String input) {
+                burgerAdapter.apply(input , burgersList);
+            }
+        }).show();
+    }
+
+    public void open_cart(View view) {
+
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(MainActivity.this, R.style.SheetDialog);
+        bottomSheetDialog.setContentView(R.layout.cart_layout);
+
+        bottomSheetDialog.show();
+        bottomSheetDialog.findViewById(R.id.close_cart).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetDialog.dismiss();
+
+            }
+        });
+        bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                openCart.setVisibility(View.VISIBLE);
+            }
+        });
+        bottomSheetDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
+        //bottomSheetDialog.getBehavior().setHalfExpandedRatio(0.9f);
+        //   cart.setVisibility(View.VISIBLE);
+        openCart.setVisibility(View.GONE);
+    }
+
+    public void speechToText(View view) {
+        Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        i.putExtra(RecognizerIntent.EXTRA_PROMPT, "say something!");
+        try {
+
+            startActivityForResult(i, 100);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(MainActivity.this, "sorry! your device doesn,t support speach langauge!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void search(View view) {
+        search("");
+    }
+
     @Override
     public void onBackPressed() {
 
-        if(cart.getVisibility()==View.VISIBLE){
-            cart.setVisibility(View.GONE);
+        if(!burgerAdapter.lastSearch.isEmpty()){
+            burgerAdapter.apply("",burgersList);
             return;
         }
         super.onBackPressed();
     }
-
-    public void close_cart(View view) {
-        cart.setVisibility(View.GONE);
-        openCart.setVisibility(View.VISIBLE);
-    }
-    public void open_cart(View view) {
-        cart.setVisibility(View.VISIBLE);
-        openCart.setVisibility(View.GONE);
-    }
-
 }

@@ -1,4 +1,4 @@
-package com.shake.burgers;
+package com.shake.burgers.manager;
 
 import org.json.JSONException;
 import org.json.JSONObject;

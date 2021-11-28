@@ -4,398 +4,544 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cart"
     android:layout_width="match_parent"
-    android:visibility="gone"
+android:fitsSystemWindows="true"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    tools:showIn="@layout/activity_main">
+   >
 
-    <androidx.core.widget.NestedScrollView
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+      android:layout_marginBottom="-10dp"
+android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/cart_background"
+        android:layout_height="match_parent">
 
-        android:layout_margin="10dp"
 
-        android:background="@drawable/cart_background">
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_alignParentTop="true"
+            android:id="@+id/top"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:id="@+id/close_cart"
+                android:src="@drawable/close" />
 
             <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:orientation="vertical">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="end"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="20dp"
-                        android:onClick="close_cart"
-                        android:src="@drawable/close" />
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:orientation="vertical">
-
-
-                        <TextView
-                            android:id="@+id/address"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-
-                            android:fontFamily="@font/futura_bold_font"
-                            android:text="Your Cart"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/futura_medium_bt"
-                            android:text="3 Items"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorAccent"
-
-                            android:textSize="14sp" />
-
-                    </LinearLayout>
-                </FrameLayout>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_margin="10dp"
-                    app:cardBackgroundColor="#575757"
-                    app:cardCornerRadius="25dp">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|end"
-                        android:layout_marginEnd="20dp"
-
-                        android:gravity="center">
-
-                        <TextView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-
-                            android:alpha=".9"
-                            android:fontFamily="@font/futura_medium_bt"
-                            android:text="AED "
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="18sp" />
-
-                        <TextView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/futura_book_font"
-
-
-                            android:text="55"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="18sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_margin="17dp"
-                            android:adjustViewBounds="true"
-                            android:src="@drawable/burger_count" />
-
-                        <TextView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/futura_bold_font"
-
-                            android:text="ShackBurger"
-
-                            android:textColor="@color/colorAccent"
-                            android:textSize="20sp" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    app:cardBackgroundColor="#575757"
-                    app:cardCornerRadius="25dp">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|end"
-                        android:layout_marginEnd="20dp"
-
-                        android:gravity="center">
-
-                        <TextView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-
-                            android:alpha=".9"
-                            android:fontFamily="@font/futura_medium_bt"
-                            android:text="AED "
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="18sp" />
-
-                        <TextView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/futura_book_font"
-
-
-                            android:text="55"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="18sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_margin="17dp"
-                            android:adjustViewBounds="true"
-                            android:src="@drawable/burger_count" />
-
-                        <TextView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/futura_bold_font"
-
-                            android:text="ShackBurger"
-
-                            android:textColor="@color/colorAccent"
-                            android:textSize="20sp" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_margin="10dp"
-                    app:cardBackgroundColor="#575757"
-                    app:cardCornerRadius="25dp">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|end"
-                        android:layout_marginEnd="20dp"
-
-                        android:gravity="center">
-
-                        <TextView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-
-                            android:alpha=".9"
-                            android:fontFamily="@font/futura_medium_bt"
-                            android:text="AED "
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="18sp" />
-
-                        <TextView
-
-                            android:id="@+id/price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-
-                            android:fontFamily="@font/futura_book_font"
-                            android:text="55"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="18sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_margin="17dp"
-                            android:adjustViewBounds="true"
-                            android:src="@drawable/burger_count" />
-
-                        <TextView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/futura_bold_font"
-
-                            android:text="ShackBurger"
-
-                            android:textColor="@color/colorAccent"
-                            android:textSize="20sp" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#fff" />
+                    android:fontFamily="@font/futura_bold_font"
+                    android:text="Your Cart"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-
-                    android:fontFamily="@font/futura_bold_font"
-                    android:text="Special Instructions"
+                    android:fontFamily="@font/futura_medium_bt"
+                    android:text="6 Items"
+                    android:textAllCaps="true"
                     android:textColor="@color/colorAccent"
-                    android:textSize="20sp" />
 
-                <EditText
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+        </FrameLayout>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_above="@id/bottom"
+            android:layout_below="@id/top"
+            android:layout_height="0dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10sp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/si_back"
-                    android:fontFamily="@font/futura_medium_bt"
-                    android:gravity="top|start"
-                    android:hint="Please make it more spicy."
-                    android:lines="4"
-                    android:paddingStart="10dp"
-                    android:paddingTop="5dp"
-                    android:textColorHint="@color/colorAccent" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:buttonTint="@color/colorPrimary"
-                    android:checked="true"
-                    android:fontFamily="@font/futura_medium_bt"
-                    android:text="Save Instructions"
-                    android:textColor="@color/colorAccent" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:buttonTint="@color/colorPrimary"
-                    android:checked="true"
-                    android:fontFamily="@font/futura_medium_bt"
-                    android:text="No Cutlery"
-                    android:textColor="@color/colorAccent" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="23dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:buttonTint="@color/colorPrimary"
-                    android:checked="true"
-                    android:fontFamily="@font/futura_medium_bt"
-                    android:text="Contactless Delivery"
-                    android:textColor="@color/colorAccent" />
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:layout_gravity="bottom"
-                    android:layout_marginBottom="10dp">
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    app:cardBackgroundColor="#575757"
+                    app:cardCornerRadius="25dp">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="20dp"
 
-                        android:orientation="vertical">
-
+                        android:gravity="center">
 
                         <TextView
 
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginStart="10dp"
 
-                            android:fontFamily="@font/futura_bold_font"
-                            android:text="Total"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:alpha=".9"
                             android:fontFamily="@font/futura_medium_bt"
-                            android:text="AED 309"
+                            android:text="AED "
                             android:textAllCaps="true"
                             android:textColor="@color/colorAccent"
+                            android:textSize="18sp" />
 
-                            android:textSize="14sp" />
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/futura_book_font"
+
+
+                            android:text="55"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_gravity="end|center_vertical"
-                        android:layout_marginEnd="20sp"
-                        android:background="@drawable/checkout"
-                        android:fontFamily="@font/futura_medium_bt"
-                        android:paddingStart="10dp"
-                        android:paddingTop="4dp"
-                        android:paddingEnd="10dp"
-                        android:paddingBottom="4dp"
-                        android:text="Checkout"
-                        android:textColor="@color/colorAccent" />
-                </FrameLayout>
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_margin="17dp"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/burger_count" />
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/futura_bold_font"
+
+                            android:text="ShackBurger"
+
+                            android:textColor="@color/colorAccent"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    app:cardBackgroundColor="#575757"
+                    app:cardCornerRadius="25dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="20dp"
+
+                        android:gravity="center">
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+
+                            android:alpha=".9"
+                            android:fontFamily="@font/futura_medium_bt"
+                            android:text="AED "
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="18sp" />
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/futura_book_font"
+
+
+                            android:text="55"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_margin="17dp"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/burger_count" />
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/futura_bold_font"
+
+                            android:text="ShackBurger"
+
+                            android:textColor="@color/colorAccent"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    app:cardBackgroundColor="#575757"
+                    app:cardCornerRadius="25dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="20dp"
+
+                        android:gravity="center">
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+
+                            android:alpha=".9"
+                            android:fontFamily="@font/futura_medium_bt"
+                            android:text="AED "
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="18sp" />
+
+                        <TextView
+
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:fontFamily="@font/futura_book_font"
+                            android:text="55"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_margin="17dp"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/burger_count" />
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/futura_bold_font"
+
+                            android:text="ShackBurger"
+
+                            android:textColor="@color/colorAccent"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    app:cardBackgroundColor="#575757"
+                    app:cardCornerRadius="25dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="20dp"
+
+                        android:gravity="center">
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+
+                            android:alpha=".9"
+                            android:fontFamily="@font/futura_medium_bt"
+                            android:text="AED "
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="18sp" />
+
+                        <TextView
+
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:fontFamily="@font/futura_book_font"
+                            android:text="55"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_margin="17dp"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/burger_count" />
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/futura_bold_font"
+
+                            android:text="ShackBurger"
+
+                            android:textColor="@color/colorAccent"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    app:cardBackgroundColor="#575757"
+                    app:cardCornerRadius="25dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="20dp"
+
+                        android:gravity="center">
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+
+                            android:alpha=".9"
+                            android:fontFamily="@font/futura_medium_bt"
+                            android:text="AED "
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="18sp" />
+
+                        <TextView
+
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:fontFamily="@font/futura_book_font"
+                            android:text="55"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_margin="17dp"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/burger_count" />
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/futura_bold_font"
+
+                            android:text="ShackBurger"
+
+                            android:textColor="@color/colorAccent"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
             </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:id="@+id/bottom"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
 
 
-        </FrameLayout>
 
-    </androidx.core.widget.NestedScrollView>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#fff" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+
+                android:fontFamily="@font/futura_bold_font"
+                android:text="Special Instructions"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/si_back"
+                android:fontFamily="@font/futura_medium_bt"
+                android:gravity="top|start"
+                android:hint="EX : Please make it more spicy."
+                android:lines="4"
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:textColorHint="@color/colorAccent" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:buttonTint="@color/colorPrimary"
+                android:checked="true"
+                android:fontFamily="@font/futura_medium_bt"
+                android:text="Save Instructions"
+                android:textColor="@color/colorAccent" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:buttonTint="@color/colorPrimary"
+                android:checked="true"
+                android:fontFamily="@font/futura_medium_bt"
+                android:text="No Cutlery"
+                android:textColor="@color/colorAccent" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="23dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:buttonTint="@color/colorPrimary"
+                android:checked="true"
+                android:fontFamily="@font/futura_medium_bt"
+                android:text="Contactless Delivery"
+                android:textColor="@color/colorAccent" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+
+                    android:orientation="vertical">
+
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+
+                        android:fontFamily="@font/futura_bold_font"
+                        android:text="Total"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/futura_medium_bt"
+                        android:text="AED 309"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorAccent"
+
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="20sp"
+                    android:background="@drawable/checkout"
+                    android:fontFamily="@font/futura_medium_bt"
+                    android:paddingStart="25dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="25dp"
+                    android:paddingBottom="8dp"
+                    android:text="Checkout"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorAccent" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
 </FrameLayout>

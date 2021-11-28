@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.res.Resources;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -55,6 +56,9 @@ public abstract class BaseActivity extends Permissions implements GoogleApiClien
 
 
 
+    }
+    public static int dpToPx(int dp) {
+        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
     public void load(String link , ImageView img , int placeholder){
         Glide.with(this).load("https://all-go.net/burger/"+link).apply(new RequestOptions()

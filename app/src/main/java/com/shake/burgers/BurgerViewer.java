@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.core.widget.ImageViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.shake.burgers.manager.Burger;
+import com.shake.burgers.manager.BurgerHolder;
 import com.shake.burgers.libs.BaseActivity;
 
 import java.util.ArrayList;

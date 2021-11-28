@@ -240,7 +240,7 @@ public class MainActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         // when get text address hide loading dialog
         progressDialog.dismiss();
-        if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
+        if (requestCode == 500 && resultCode == RESULT_OK && data != null) {
             ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             if (result != null && !result.isEmpty()) {
                 String recognizedText = result.get(0);
@@ -272,8 +272,6 @@ public class MainActivity extends BaseActivity {
             }).show();
 
 
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -333,7 +331,7 @@ public class MainActivity extends BaseActivity {
         i.putExtra(RecognizerIntent.EXTRA_PROMPT, "say something!");
         try {
 
-            startActivityForResult(i, 100);
+            startActivityForResult(i, 500);
         } catch (ActivityNotFoundException a) {
             Toast.makeText(MainActivity.this, "sorry! your device doesn,t support speach langauge!", Toast.LENGTH_LONG).show();
         }

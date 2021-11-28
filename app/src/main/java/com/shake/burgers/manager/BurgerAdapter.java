@@ -35,7 +35,7 @@ public class BurgerAdapter extends RecyclerView.Adapter<BurgerHolder> {
             }
         }
 
-        if(burgersList.isEmpty()){
+        if(!burgers.isEmpty() && burgersList.isEmpty()){
             Toast.makeText(activity, "Sorry no Products with this name ❤", Toast.LENGTH_SHORT).show();
             apply("", burgers);
         }
